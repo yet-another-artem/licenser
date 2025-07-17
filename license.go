@@ -10,6 +10,15 @@ import (
 )
 
 var extensions = []string{".go", ".js", ".sh", ".py", ".c", ".cpp", ".ts"}
+var licensePrefix = map[string]string{
+    ".go":  "// ",
+    ".js":  "// ",
+    ".ts":  "// ",
+    ".py":  "# ",
+    ".sh":  "# ",
+    ".c":   "// ",
+    ".cpp": "// ",
+}
 
 func hasValidExtension(filename string) bool {
     for _, ext := range extensions {
@@ -18,6 +27,13 @@ func hasValidExtension(filename string) bool {
         }
     }
     return false
+}
+
+func getCommentedLicense(ext, license string) string {
+    if prefix, ok := licensePrefix[ext]; ok {
+        return prefix + license + "\n\n"
+    }
+    return "// " + license + "\n\n"
 }
 
 func fileHasLicense(path string, license string) (bool, error) {
@@ -45,7 +61,8 @@ func injectLicense(path string, license string) error {
         return err
     }
 
-    newContent := []byte(license + "\n\n")
+    ext := filepath.Ext(path)
+    newContent := []byte(getCommentedLicense(ext, license))
     newContent = append(newContent, content...)
 
     if err := os.WriteFile(path, newContent, 0644); err != nil {

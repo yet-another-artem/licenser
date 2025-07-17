@@ -23,7 +23,6 @@ func setupTestFile(t *testing.T, content string) string {
 func TestInjectLicense(t *testing.T) {
     const license = "Copyright DOLBAEB 2025"
 
-    // Тест: добавление лицензии
     path := setupTestFile(t, "package main\n\nfunc main() {}")
     err := InjectLicenses("testdata", license)
     if err != nil {
@@ -34,11 +33,10 @@ func TestInjectLicense(t *testing.T) {
     if err != nil {
         t.Fatalf("Failed to read file: %v", err)
     }
-    if !strings.HasPrefix(string(data), license) {
+    if !strings.Contains(string(data), license) {
         t.Errorf("License not injected properly")
     }
 
-    // Тест: не дублируется
     err = InjectLicenses("testdata", license)
     if err != nil {
         t.Fatalf("Inject second time failed: %v", err)
