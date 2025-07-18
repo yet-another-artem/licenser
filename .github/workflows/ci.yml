@@ -34,7 +34,6 @@ jobs:
     strategy:
       matrix:
         os-versions: [ "ubuntu-latest", "windows-latest" ]
-        required-setup-software-actions: [ "docker/setup-docker-action@v4.3.0", "actions/setup-go@v5.5.0" ]
     runs-on: ${{ matrix.os-versions }}
     steps:
       - uses: actions/checkout@v4
@@ -44,5 +43,13 @@ jobs:
         run: go test
       - name: Build Docker image
         run: docker build -t licenser_test .
+        if: ${{ runner.os }} == "Linux"
       - name: Run Docker image
         run: docker run --volume ./:/app/data/ licenser_test:latest
+        if: ${{ runner.os }} == "Linux"
+      - name: Build Go code
+        run: go build -o test.exe
+        if: ${{ runner.os }} == "Windows"
+      - name: Run Go code
+        run: test.exe . yet.another.artem
+        if: ${{ runner.os }} == "Windows"
