@@ -51,5 +51,5 @@ jobs:
         run: go build -o test.exe
         if: runner.os == 'Windows'
       - name: Run Go code
-        run: test.exe . yet.another.artem
+        run: test.exe $PWD.Path yet.another.artem
         if: runner.os == 'Windows'
