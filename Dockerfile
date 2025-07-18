@@ -6,4 +6,4 @@ RUN go build -o main
 FROM gcr.io/distroless/static-debian12 AS run-stage
 WORKDIR /app
 COPY --from=build-stage /app/main .
-ENTRYPOINT [ "./app/main" ]
+ENTRYPOINT [ "./main", "data", "yet.another.artem" ]
