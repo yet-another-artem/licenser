@@ -38,8 +38,8 @@ jobs:
     runs-on: ${{ matrix.os-versions }}
     steps:
       - uses: actions/checkout@v4
-      - name: Setup required software
-        uses: ${{ matrix.required-setup-software-actions }}
+      - uses: actions/setup-go@v5.5.0
+      - uses: docker/setup-docker-action@v4.3.0
       - name: Test go code
         run: go test
       - name: Build Docker image
