@@ -1,0 +1,32 @@
+name: CI checks
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+    types:
+      - opened
+jobs:
+  lint_code:
+    name: Test project code
+    strategy:
+      matrix:
+        os-versions: [ "ubuntu-latest", "windows-latest" ]
+    runs-on: ${{ matrix.os-versions }}
+    permissions:
+      contents: read
+      packages: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run super-linter against project
+        uses: super-linter/super-linter@v8.0.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
