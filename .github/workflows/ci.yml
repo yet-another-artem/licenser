@@ -43,13 +43,13 @@ jobs:
         run: go test
       - name: Build Docker image
         run: docker build -t licenser_test .
-        if: runner.os == "Linux"
+        if: runner.os == 'Linux'
       - name: Run Docker image
         run: docker run --volume ./:/app/data/ licenser_test:latest
-        if: runner.os == "Linux"
+        if: runner.os == 'Linux'
       - name: Build Go code
         run: go build -o test.exe
-        if: runner.os == "Windows"
+        if: runner.os == 'Windows'
       - name: Run Go code
         run: test.exe . yet.another.artem
-        if: runner.os == "Windows"
+        if: runner.os == 'Windows'
