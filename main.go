@@ -1,19 +1,18 @@
 package main
 
 import (
-    "fmt"
-    "os"
+	"fmt"
+	"os"
+	"time"
 )
 
 func main() {
-    dir := "."
-    if len(os.Args) > 1 {
-        dir = os.Args[1]
-    }
-    license := "Copyright ya.eblan.pomogite.mne 2025"
-
-    fmt.Println("ватермарка отправлена в файл:", dir)
-    if err := InjectLicenses(dir, license); err != nil {
-        fmt.Println("А ПОШЕЛ ТЫ НАХУЙ :)):", err)
-    }
+	dir := os.Args[1]
+	copyright_holder := os.Args[2]
+	current_year := time.Now().Year()
+	license := "Copyright" + copyright_holder + string(current_year)
+	fmt.Println("Copyright will be injected in the following file or directory:", dir)
+	if err := InjectLicenses(dir, license); err != nil {
+		fmt.Println("Oh, there is an error:", err)
+	}
 }
