@@ -1,5 +1,5 @@
 name: CI checks
-on:
+'on':
   push:
     branches:
       - main
@@ -13,7 +13,7 @@ on:
 jobs:
   lint_code:
     name: Lint project code
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: read
@@ -25,13 +25,15 @@ jobs:
       - name: Run super-linter against project
         uses: super-linter/super-linter@v8.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
   test_code:
     name: Test project code
     strategy:
       matrix:
-        os-versions: [ "ubuntu-latest", "windows-latest" ]
-    runs-on: ${{ matrix.os-versions }}
+        os-versions:
+          - ubuntu-latest
+          - windows-latest
+    runs-on: '${{ matrix.os-versions }}'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5.5.0
@@ -42,7 +44,7 @@ jobs:
         run: docker build -t licenser_test .
         if: runner.os == 'Linux'
       - name: Run Docker image
-        run: docker run --volume ./:/app/data/ licenser_test:latest
+        run: 'docker run --volume ./:/app/data/ licenser_test:latest'
         if: runner.os == 'Linux'
       - name: Build Go code
         run: go build -o test.exe
