@@ -12,13 +12,6 @@ jobs:
     if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v4
-      - name: Review PR
-        uses: sturdy-dev/codeball-action@v2
-        with:
-          approvePullRequests: "true"
-          labelPullRequestsWhenApproved: "true"
-          labelPullRequestsWhenReviewNeeded: "false"
-          failJobsWhenReviewNeeded: "true"
       - name: Setup Docker
         uses: docker/setup-docker-action@v4
       - name: Cache Docker layers
