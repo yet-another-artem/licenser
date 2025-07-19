@@ -3,7 +3,8 @@ WORKDIR /app
 COPY . .
 RUN go build -o main
 
-FROM gcr.io/distroless/static-debian12 AS run-stage
+FROM bash:4.1.17-alpine3.22 AS run-stage
 WORKDIR /app
 COPY --from=build-stage /app/main .
-ENTRYPOINT [ "./main", "data", "yet.another.artem" ]
+HEALTHCHECK NONE
+CMD [ "./main", "data", "yet.another.artem" ]
