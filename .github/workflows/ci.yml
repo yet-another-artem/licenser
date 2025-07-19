@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Run linter against project's code
-        run: apt install -y golint; golint .
+        run: sudo apt install -y golint; golint .
   test_code:
     name: Test project code
     strategy:
