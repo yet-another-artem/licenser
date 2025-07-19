@@ -13,10 +13,7 @@ on:
 jobs:
   lint_code:
     name: Lint project code
-    strategy:
-      matrix:
-        os-versions: [ "ubuntu-latest", "windows-latest" ]
-    runs-on: ${{ matrix.os-versions }}
+    runs-on: "ubuntu-latest"
     permissions:
       contents: read
       packages: read
