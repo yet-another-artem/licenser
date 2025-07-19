@@ -28,6 +28,8 @@ jobs:
           - ubuntu-latest
           - windows-latest
     runs-on: '${{ matrix.os-versions }}'
+    needs:
+      - lint_code
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5.5.0
