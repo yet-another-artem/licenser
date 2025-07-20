@@ -11,9 +11,9 @@ import (
 
 func main() {
 	dir := os.Args[1]
-	copyright_holder := os.Args[2]
-	current_year := time.Now().Year()
-	license := "Copyright " + copyright_holder + " " + strconv.Itoa(current_year)
+	copyrightHolder := os.Args[2]
+	currentYear := time.Now().Year()
+	license := "Copyright " + copyrightHolder + " " + strconv.Itoa(currentYear)
 	fmt.Println("Copyright will be injected in the following file or directory:", dir)
 	if err := InjectLicenses(dir, license); err != nil {
 		fmt.Println("Oh, there is an error:", err)

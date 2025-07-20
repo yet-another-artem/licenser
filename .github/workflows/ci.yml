@@ -1,0 +1,52 @@
+name: CI checks
+'on':
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+    types:
+      - opened
+jobs:
+  lint_code:
+    name: Lint project code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run linter against project's code
+        uses: Jerome1337/golint-action@v1.0.3
+        with:
+          golint-path: "./"
+  test_code:
+    name: Test project code
+    strategy:
+      matrix:
+        os-versions:
+          - ubuntu-latest
+          - windows-latest
+    runs-on: '${{ matrix.os-versions }}'
+    needs:
+      - lint_code
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5.5.0
+      - uses: docker/setup-docker-action@v4.3.0
+      - name: Test go code
+        run: go test
+      - name: Build Docker image
+        run: docker build -t licenser_test .
+        if: runner.os == 'Linux'
+      - name: Run Docker image
+        run: 'docker run --volume ./:/app/data/ licenser_test:latest'
+        if: runner.os == 'Linux'
+      - name: Build Go code
+        run: go build -o test.exe
+        if: runner.os == 'Windows'
+      - name: Run Go code
+        run: .\test.exe .\ yet.another.artem
+        if: runner.os == 'Windows'
