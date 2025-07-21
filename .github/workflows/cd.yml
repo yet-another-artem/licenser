@@ -43,3 +43,12 @@ jobs:
         uses: actions/setup-go@v5.5.0
       - name: Compile binaries for all popular platforms
         run: exec ${{ matrix.compile_commands }}
+      - name: Release version
+        uses: marvinpinto/action-automatic-releases@v1.2.1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: The latest version of the Licenser program (This Github release was created by automatic Github Actions workflow)
+          files: |
+            licenser*
