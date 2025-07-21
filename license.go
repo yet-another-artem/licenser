@@ -71,7 +71,7 @@ func injectLicense(path string, license string) error {
 		return err
 	}
 
-	fmt.Println("✅ Licensed:", path)
+	fmt.Println("[✅ SUCCESS]: FILE LICENSED: ", path)
 	return nil
 }
 
@@ -83,7 +83,7 @@ func InjectLicenses(root string, license string) error {
 		}
 		if hasValidExtension(path) {
 			if err := injectLicense(path, license); err != nil {
-				fmt.Println("❌ Error in", path, ":", err)
+				fmt.Println("[⛔ ERROR]: PROBLEM WITH THIS FILE", path, ". REASON:", err)
 			}
 		}
 		return nil
