@@ -33,7 +33,7 @@ jobs:
       - name: Setup Golang
         uses: actions/setup-go@v5.5.0
       - name: Compile binaries for all popular platforms
-        run: sudo bash ./.github/workflows/compile_commands.sh
+        run: sudo bash ./.github/compile_commands.sh
       - name: Release version
         uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
