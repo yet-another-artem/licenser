@@ -10,6 +10,15 @@ jobs:
     name: "Build an image and push it to the Docker Hub"
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
+    strategy:
+      fail-fast: true
+      matrix:
+        compile_commands:
+          - env GOOS=linux GOARCH=amd64; go build -o licenser_linux_amd64
+          - env GOOS=linux GOARCH=arm64; go build -o licenser_linux_arm64
+          - env GOOS=darwin GOARCH=amd64; go build -o licenser_macos_amd64
+          - env GOOS=darwin GOARCH=arm64; go build -o licenser_macos_arm64
+          - env GOOS=windows GOARCH=amd64; go build -o licenser_windows_amd64.exe
     steps:
       - name: Approve deploy
         uses: powerdot/telegram-manual-approval@main
@@ -30,4 +39,7 @@ jobs:
           context: .
           push: true
           tags: ananotherartem/licenser:latest
-
+      - name: Setup Golang
+        uses: actions/setup-go@v5.5.0
+      - name: Compile binaries for all popular platforms
+        run: exec ${{ matrix.compile_commands }}
