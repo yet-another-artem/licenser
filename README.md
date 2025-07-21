@@ -81,6 +81,6 @@ This project is licensed under the terms specified in the [LICENSE](./LICENSE) f
 
 The original idea of the program was given to me by my gal pal, named Kira. Thanks to her! ❤️
 
-Made by yet.another.artem.
+Made by "yet.another.artem".
 
 Copyright (c) 2025 yet.another.artem
