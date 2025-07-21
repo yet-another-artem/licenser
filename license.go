@@ -1,5 +1,9 @@
 // Copyright yet.another.artem 2025
 
+// Copyright . 2025
+
+// Copyright yet.another.artem 2025
+
 package main
 
 import (

@@ -11,6 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
+      - name: Approve deploy
+        uses: powerdot/telegram-manual-approval@main
+        with:
+          TELEGRAM_KEY: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       - uses: actions/checkout@v4
       - name: Setup Docker
         uses: docker/setup-docker-action@v4
@@ -25,3 +30,4 @@ jobs:
           context: .
           push: true
           tags: ananotherartem/licenser:latest
+
