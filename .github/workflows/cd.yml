@@ -10,6 +10,8 @@ jobs:
     name: "Build an image and push it to the Docker Hub"
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
+    permissions:
+      contents: write
     steps:
       - name: Approve deploy
         uses: powerdot/telegram-manual-approval@main
